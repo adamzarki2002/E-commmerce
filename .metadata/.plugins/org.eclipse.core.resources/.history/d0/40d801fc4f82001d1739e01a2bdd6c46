@@ -1,0 +1,52 @@
+package Servlet;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import DAO.implementDao;
+import DAO.interfaceDao;
+import metier.USER;
+
+@WebServlet(urlPatterns = { "/", "/index", "/lister" })
+public class afficher extends HttpServlet {
+	private static final long serialVersion0UID = 1L;
+	private interfaceDao dao = new implementDao();
+
+	public afficher() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (request.getServletPath().equals("/")) {
+			this.getServletContext().getRequestDispatcher("/INDEX.jsp").forward(request, response);
+
+		} else {
+			doPost(request, response);
+
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		if (request.getServletPath().equals("/lister")) {
+
+			request.setAttribute("USER", dao.lister());
+
+			this.getServletContext().getRequestDispatcher("/lister.jsp").forward(request, response);
+		}
+
+		if (request.getServletPath().equals("/index")) {
+
+			this.getServletContext().getRequestDispatcher("/INDEX.jsp").forward(request, response);
+		}
+
+	}
+
+}

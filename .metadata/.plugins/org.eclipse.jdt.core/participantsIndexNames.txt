@@ -1,0 +1,9 @@
+INDEX VERSION 1.131
+C:\Users\ASUS TUF F15\Desktop\tp jEE\ecom\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3233515081.index
+\ctrl2\src\main\java
+C:\Users\ASUS TUF F15\Desktop\tp jEE\ecom\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1652482714.index
+\CTRL2__Jee\src\main\java
+C:\Users\ASUS TUF F15\Desktop\tp jEE\ecom\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1141250809.index
+\CTRL2__Jee (1)\src\main\java
+C:\Users\ASUS TUF F15\Desktop\tp jEE\ecom\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\417771441.index
+\ecom\src\main\java

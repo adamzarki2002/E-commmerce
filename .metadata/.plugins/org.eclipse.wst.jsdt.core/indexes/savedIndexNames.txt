@@ -1,0 +1,23 @@
+INDEX VERSION 1.4+C:\Users\ASUS TUF F15\Desktop\tp jEE\ecom\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1175766011.index
+530946864.index
+2526324090.index
+451209474.index
+141790965.index
+1761873045.index
+2700083835.index
+690333048.index
+3500312130.index
+2311005929.index
+2586171283.index
+2551322856.index
+3096693150.index
+4175081444.index
+2899234066.index
+1068005600.index
+4128354362.index
+1874778499.index
+1990021045.index
+3997352406.index
+2920280060.index
+3276706686.index

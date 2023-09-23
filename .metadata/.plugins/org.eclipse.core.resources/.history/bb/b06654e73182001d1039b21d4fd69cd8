@@ -1,0 +1,152 @@
+package com.objis.gestionformations.copy;
+
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import DAO.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import metier.Clients;
+
+
+/**
+ * Servlet implementation class MaServlet
+ */
+@WebServlet(urlPatterns = { "/login","/inscription","/listeclient","/supprimerCli"})
+public class MaServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private Login login;
+	private inscription inscrcli;
+	private listeclient listecli;
+	private supprimercli supp;
+	public void init() {
+    	listecli=new listeclient();
+    	supp= new supprimercli();
+    }		
+	
+    /**
+     * Default constructor. 
+     */
+    public MaServlet() {
+       super();
+    	// TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String path = request.getServletPath();
+		System.out.println("path : " + path);
+		
+		HttpSession session = request.getSession();
+		if(request.getServletPath().equals("/login")) {
+			int numCli =Integer.parseInt(request.getParameter("numCli"));
+			String pass = request.getParameter("pass");
+
+			String nomcli = request.getParameter("nomcli");
+			String prenomcli = request.getParameter("prenomcli");
+			
+		
+
+			System.out.println(2);
+			
+			System.out.println("userr "+Login.getUser(numCli,pass));
+			
+
+		
+				if(Login.getUser(numCli,pass).getNumCli()==1){
+					System.out.println(2);
+					Clients user =new Clients();
+					user = Login.getUser(numCli,pass);
+					nomcli = user.getNomCli();
+					prenomcli = user.getPrenomCli();
+					session.setAttribute("nomcli", nomcli);
+					session.setAttribute("prenomcli", prenomcli);
+					request.getRequestDispatcher("homeadmin.jsp").forward(request,response);
+					System.out.println(2);
+					
+				}
+				else if(Login.getUser(numCli,pass).getNumCli()>1) {
+					System.out.println(2);
+					Clients user =new Clients();
+					user = Login.getUser(numCli,pass);		
+					nomcli = user.getNomCli();
+					prenomcli = user.getPrenomCli();	
+					session.setAttribute("numcli", numCli);
+					session.setAttribute("nomcli", nomcli);
+					session.setAttribute("prenomcli", prenomcli);
+					request.getRequestDispatcher("homeclient.jsp").forward(request,response);
+					System.out.println(2);
+					System.out.println(2);
+				
+				}
+				else {
+					request.setAttribute("mdpInco", "email ou mot de passe incorrect");
+					this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+				}
+		}
+		//////////////////////////////////inscription/////////////////////////////////////////////
+		if(request.getServletPath().equals("/inscription")) {
+			Clients em = new Clients();
+			em.setNomCli(request.getParameter("nomcli"));
+			System.out.println("2");
+			em.setPrenomCli(request.getParameter("prenomcli"));
+			System.out.println("4");
+			em.setPass(request.getParameter("pass"));
+			em.setAdrCli(request.getParameter("adrcli"));
+			request.setAttribute("name", 1);
+			System.out.println(5);
+		
+			 	if(inscrcli.inscriptioncli(em)!=0) {
+			 		
+			         // session.setAttribute("username",username);
+			         response.sendRedirect("login.jsp");
+			     } else {
+			         
+			         //session.setAttribute("user", username);
+			         response.sendRedirect("inscription.jsp");
+			     }
+			
+		}
+		////////////////////////////////liste client//////////////////////////////////////////////////
+		if(request.getServletPath().equals("/listeclient")) {
+			List<Clients> c= new ArrayList<Clients>();
+			c=(List<Clients>) listeclient.listeClients();
+			request.setAttribute("client", c);
+			this.getServletContext().getRequestDispatcher("/listeclient.jsp").forward(request, response);
+		///////////////////////////////supprimer client////////////////////////////////////////////////
+		 if (request.getServletPath().equals("/supprimerCli")) {
+				System.out.println("1");
+				int numCli = Integer.parseInt(request.getParameter("numCli"));
+				System.out.println("1");
+				supp.supprimercli(numCli);
+				System.out.println(122);
+				request.setAttribute("em", 1);
+				this.getServletContext().getRequestDispatcher("/listeclient").forward(request, response);
+			
+		}
+		
+		}
+	
+	}
+}
+
+			
+	
